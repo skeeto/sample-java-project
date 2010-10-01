@@ -1,0 +1,12 @@
+This is just a reference for setting up a new Java project. It
+contains many of the little Ant tricks I've learned over the years.
+
+I hate coding absolute paths in my build script and I hate including
+built files as part of the base project. My philosphy is that the
+*environment* should be set up so that the tool can easily find the
+external resources they need (JUnit, etc.) from the system, not within
+the project. It's the system that provides the libraries. Anyone who
+has the proper development environment set up -- one that carries
+across many projects -- should be able to clone the repository and do
+the build without editing anything or installing anything else into
+the project space.
