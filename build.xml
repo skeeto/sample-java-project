@@ -19,7 +19,7 @@
   </target>
 
   <target name="jar" depends="compile">
-    <jar destfile="${jar}" basedir="${build.dir}">
+    <jar destfile="${jar}" basedir="${build.classes.dir}">
       <manifest>
         <attribute name="Main-Class" value="sample.java.project.SampleJavaProject"/>
       </manifest>
