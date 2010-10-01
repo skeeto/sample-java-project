@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<project name="SampleJavaProject" default="jar">
+  <property name="jar" value="SJP.jar"/>
+  <property name="src.dir" value="src"/>
+  <property name="build.dir" value="build"/>
+  <property name="test.dir" value="test"/>
+  <property name="build.classes.dir" value="${build.dir}/classes"/>
+  <property name="test.classes.dir" value="${build.dir}/test"/>
+
+  <target name="init">
+    <mkdir dir="${build.classes.dir}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
+	   optimize="on" debug="on" deprecation="on">
+      <compilerarg value="-Xlint"/>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="${jar}" basedir="${build.dir}">
+      <manifest>
+        <attribute name="Main-Class" value="sample.java.project.SampleJavaProject"/>
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+    <delete file="${jar}"/>
+  </target>
+
+  <!-- JUnit -->
+
+  <target name="test-init" depends="init">
+    <mkdir dir="${test.classes.dir}"/>
+  </target>
+
+  <target name="test-compile" depends="test-init,compile">
+    <javac srcdir="${test.dir}" destdir="${test.classes.dir}"
+	   classpath="${build.classes.dir}">
+      <compilerarg value="-Xlint"/>
+    </javac>
+  </target>
+
+  <target name="test" depends="test-compile">
+    <junit>
+      <classpath>
+	<pathelement path="${build.classes.dir}"/>
+	<pathelement path="${test.classes.dir}"/>
+      </classpath>
+      <batchtest>
+	<formatter type="brief" usefile="false"/>
+	<fileset dir="${test.classes.dir}"/>
+      </batchtest>
+    </junit>
+  </target>
+</project>
