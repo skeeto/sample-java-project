@@ -29,6 +29,10 @@
     </jar>
   </target>
 
+  <target name="run" depends="jar">
+    <java jar="${jar}" fork="true"/>
+  </target>
+
   <target name="clean">
     <delete dir="${build.dir}"/>
     <delete file="${jar}"/>
