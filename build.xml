@@ -14,7 +14,8 @@
 
   <target name="compile" depends="init">
     <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
-	   optimize="on" debug="on" deprecation="on">
+	   optimize="on" debug="on" deprecation="on"
+	   includeantruntime="false">
       <compilerarg value="-Xlint"/>
     </javac>
   </target>
@@ -56,7 +57,7 @@
 
   <target name="test-compile" depends="test-init,compile">
     <javac srcdir="${test.dir}" destdir="${test.classes.dir}"
-	   classpath="${build.classes.dir}">
+	   classpath="${build.classes.dir}" includeantruntime="yes">
       <compilerarg value="-Xlint"/>
     </javac>
   </target>
