@@ -6,6 +6,7 @@
   <property name="test.dir" value="test"/>
   <property name="build.classes.dir" value="${build.dir}/classes"/>
   <property name="test.classes.dir" value="${build.dir}/test"/>
+  <taskdef resource="net/sf/antcontrib/antlib.xml"/>
 
   <target name="init">
     <mkdir dir="${build.classes.dir}"/>
@@ -29,6 +30,22 @@
   <target name="clean">
     <delete dir="${build.dir}"/>
     <delete file="${jar}"/>
+  </target>
+
+  <target name="format">
+    <for param="file">
+      <path>
+        <fileset dir="${src.dir}" includes="**/*.java"/>
+        <fileset dir="${test.dir}" includes="**/*.java"/>
+      </path>
+      <sequential>
+        <exec executable="astyle">
+          <arg value="--mode=java"/>
+          <arg value="--suffix=none"/>
+          <arg value="@{file}"/>
+        </exec>
+      </sequential>
+    </for>
   </target>
 
   <!-- JUnit -->

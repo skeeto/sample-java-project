@@ -1,6 +1,10 @@
 This is just a reference for setting up a new Java project. It
 contains many of the little Ant tricks I've learned over the years.
 
+In addition to Ant, you will need Ant-Contrib. If you want the
+"format" target to work, you will need to have Astyle installed and in
+your path.
+
 I hate coding absolute paths in my build script and I hate including
 built files as part of the base project. My philosphy is that the
 *environment* should be set up so that the tool can easily find the
