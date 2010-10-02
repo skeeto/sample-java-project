@@ -12,7 +12,8 @@
     <mkdir dir="${build.classes.dir}"/>
   </target>
 
-  <target name="compile" depends="init">
+  <target name="compile" depends="init"
+	  description="Compile all source files.">
     <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
 	   optimize="on" debug="on" deprecation="on"
 	   includeantruntime="false">
@@ -20,7 +21,8 @@
     </javac>
   </target>
 
-  <target name="jar" depends="compile">
+  <target name="jar" depends="compile"
+	  description="Generate the jarfile distributable.">
     <jar destfile="${jar}" basedir="${build.classes.dir}">
       <manifest>
         <attribute name="Main-Class"
@@ -29,16 +31,16 @@
     </jar>
   </target>
 
-  <target name="run" depends="jar">
+  <target name="run" depends="jar" description="Run the application.">
     <java jar="${jar}" fork="true"/>
   </target>
 
-  <target name="clean">
+  <target name="clean" description="Delete all generated files.">
     <delete dir="${build.dir}"/>
     <delete file="${jar}"/>
   </target>
 
-  <target name="format">
+  <target name="format" description="Run the indenter on all source files.">
     <for param="file">
       <path>
         <fileset dir="${src.dir}" includes="**/*.java"/>
@@ -67,7 +69,7 @@
     </javac>
   </target>
 
-  <target name="test" depends="test-compile">
+  <target name="test" depends="test-compile" description="Run all tests.">
     <junit>
       <classpath>
 	<pathelement path="${build.classes.dir}"/>
