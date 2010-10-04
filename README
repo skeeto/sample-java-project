@@ -1,12 +1,18 @@
 This is just a reference for setting up a new Java project. It
-contains many of the little Ant tricks I've learned over the years.
+contains some of the little Ant tricks I've learned.
 
 In addition to Ant, you will need Ant-Contrib. If you want the
 "format" target to work, you will need to have Astyle installed and in
 your path.
 
+Ant will also be looking for Checkstyle, which provides the "check"
+target. Except the extra target, I think it should work without
+it. Like a hardcore bureaucrat, Checkstyle will harshly criticize your
+code, requiring you to add every bit of excessive and needless
+boilerplate. That can keep some idle hands pretty busy.
+
 I hate coding absolute paths in my build script and I hate including
-built files as part of the base project. My philosphy is that the
+built files as part of the base project. My philosophy is that the
 *environment* should be set up so that the tool can easily find the
 external resources they need (JUnit, etc.) from the system, not within
 the project. It's the system that provides the libraries. Anyone who
