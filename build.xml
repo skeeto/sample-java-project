@@ -6,7 +6,9 @@
   <property name="test.dir" value="test"/>
   <property name="build.classes.dir" value="${build.dir}/classes"/>
   <property name="test.classes.dir" value="${build.dir}/test"/>
+
   <taskdef resource="net/sf/antcontrib/antlib.xml"/>
+  <taskdef resource="checkstyletask.properties"/>
 
   <target name="init">
     <mkdir dir="${build.classes.dir}"/>
@@ -54,6 +56,12 @@
         </exec>
       </sequential>
     </for>
+  </target>
+
+  <target name="check">
+    <checkstyle config="doc/sun_checks.xml">
+      <fileset dir="src" includes="**/*.java"/>
+    </checkstyle>
   </target>
 
   <!-- JUnit -->
