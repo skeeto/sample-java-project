@@ -4,6 +4,7 @@
   <property name="src.dir" value="src"/>
   <property name="build.dir" value="build"/>
   <property name="test.dir" value="test"/>
+  <property name="doc.dir" value="doc"/>
   <property name="build.classes.dir" value="${build.dir}/classes"/>
   <property name="test.classes.dir" value="${build.dir}/test"/>
   <taskdef resource="checkstyletask.properties"/>
@@ -41,6 +42,12 @@
   <target name="clean" description="Delete all generated files.">
     <delete dir="${build.dir}"/>
     <delete file="${jar}"/>
+  </target>
+
+  <target name="javadoc" description="Generate Javadoc HTML.">
+    <javadoc destdir="${doc.dir}/javadoc">
+      <fileset dir="${src.dir}" includes="**/*.java" />
+    </javadoc>
   </target>
 
   <target name="format" description="Run the indenter on all source files.">
