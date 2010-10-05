@@ -19,6 +19,9 @@
 	   includeantruntime="false">
       <compilerarg value="-Xlint"/>
     </javac>
+    <copy todir="${build.classes.dir}">
+      <fileset dir="${src.dir}" excludes="**/*.java"/>
+    </copy>
   </target>
 
   <target name="jar" depends="compile"
