@@ -8,6 +8,7 @@
   <property name="build.classes.dir" value="${build.dir}/classes"/>
   <property name="test.classes.dir" value="${build.dir}/test"/>
   <taskdef resource="checkstyletask.properties"/>
+  <taskdef resource="proguard/ant/task.properties"/>
 
   <target name="init">
     <mkdir dir="${build.classes.dir}"/>
@@ -63,6 +64,20 @@
     <checkstyle config="doc/sun_checks.xml">
       <fileset dir="src" includes="**/*.java"/>
     </checkstyle>
+  </target>
+
+  <target name="optimize" depends="jar">
+    <proguard>
+      <libraryjar path="${java.home}/lib/rt.jar"/>
+      <injar file="${jar.file}"/>
+      <outjar file="out.${jar.file}"/>
+      <keepclasseswithmembers access="public" type="class">
+	<method access="public" type="void" name="main"
+		parameters="java.lang.String[]"/>
+      </keepclasseswithmembers>
+    </proguard>
+    <delete file="${jar.file}"/>
+    <move file="out.${jar.file}" tofile="${jar.file}"/>
   </target>
 
   <!-- JUnit -->
