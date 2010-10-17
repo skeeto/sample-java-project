@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project name="SampleJavaProject" default="jar">
-  <property name="jar" value="SJP.jar"/>
+  <property name="jar.file" value="SJP.jar"/>
   <property name="src.dir" value="src"/>
   <property name="build.dir" value="build"/>
   <property name="test.dir" value="test"/>
@@ -27,7 +27,7 @@
 
   <target name="jar" depends="compile"
 	  description="Generate the jarfile distributable.">
-    <jar destfile="${jar}" basedir="${build.classes.dir}">
+    <jar destfile="${jar.file}" basedir="${build.classes.dir}">
       <manifest>
         <attribute name="Main-Class"
 		   value="sample.java.project.SampleJavaProject"/>
@@ -36,12 +36,12 @@
   </target>
 
   <target name="run" depends="jar" description="Run the application.">
-    <java jar="${jar}" fork="true"/>
+    <java jar="${jar.file}" fork="true"/>
   </target>
 
   <target name="clean" description="Delete all generated files.">
     <delete dir="${build.dir}"/>
-    <delete file="${jar}"/>
+    <delete file="${jar.file}"/>
   </target>
 
   <target name="javadoc" description="Generate Javadoc HTML.">
