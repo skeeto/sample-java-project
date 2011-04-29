@@ -1,17 +1,36 @@
 <?xml version="1.0"?>
 <project name="SampleJavaProject" default="jar">
-  <property name="jar.file" value="SJP.jar"/>
+  <!-- Project-specific configuration -->
+  <property name="package" value="sample.java.project"/>
+  <property name="main.class" value="${package}.${ant.project.name}"/>
+  <property name="jar.file" value="${ant.project.name}.jar"/>
+
+  <!-- Standard Directory Layout -->
   <property name="src.dir" value="src"/>
-  <property name="build.dir" value="build"/>
   <property name="test.dir" value="test"/>
-  <property name="doc.dir" value="doc"/>
+  <property name="build.dir" value="build"/>
   <property name="build.classes.dir" value="${build.dir}/classes"/>
   <property name="test.classes.dir" value="${build.dir}/test"/>
+  <property name="dist.dir" value="dist"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="doc.dir" value="doc"/>
+
+  <!-- Project classpath -->
+  <path id="build.classpath">
+    <fileset dir="${lib.dir}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <!-- Additional build tools -->
   <taskdef resource="checkstyletask.properties"/>
   <taskdef resource="proguard/ant/task.properties"/>
 
+  <!-- Targets -->
+
   <target name="init">
     <mkdir dir="${build.classes.dir}"/>
+    <mkdir dir="${dist.dir}"/>
   </target>
 
   <target name="compile" depends="init"
@@ -20,6 +39,7 @@
 	   optimize="on" debug="on" deprecation="on"
 	   includeantruntime="false">
       <compilerarg value="-Xlint"/>
+      <classpath refid="build.classpath"/>
     </javac>
     <copy todir="${build.classes.dir}">
       <fileset dir="${src.dir}" excludes="**/*.java"/>
@@ -28,21 +48,21 @@
 
   <target name="jar" depends="compile"
 	  description="Generate the jarfile distributable.">
-    <jar destfile="${jar.file}" basedir="${build.classes.dir}">
+    <jar destfile="${dist.dir}/${jar.file}" basedir="${build.classes.dir}">
+      <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
       <manifest>
-        <attribute name="Main-Class"
-		   value="sample.java.project.SampleJavaProject"/>
+        <attribute name="Main-Class" value="${main.class}"/>
       </manifest>
     </jar>
   </target>
 
   <target name="run" depends="jar" description="Run the application.">
-    <java jar="${jar.file}" fork="true"/>
+    <java jar="${dist.dir}/${jar.file}" fork="true"/>
   </target>
 
   <target name="clean" description="Delete all generated files.">
     <delete dir="${build.dir}"/>
-    <delete file="${jar.file}"/>
+    <delete dir="${dist.dir}"/>
   </target>
 
   <target name="javadoc" description="Generate Javadoc HTML.">
@@ -69,15 +89,15 @@
   <target name="optimize" depends="jar">
     <proguard>
       <libraryjar path="${java.home}/lib/rt.jar"/>
-      <injar file="${jar.file}"/>
-      <outjar file="out.${jar.file}"/>
+      <injar file="${dist.dir}/${jar.file}"/>
+      <outjar file="${dist.dir}/out.${jar.file}"/>
       <keepclasseswithmembers access="public" type="class">
 	<method access="public" type="void" name="main"
 		parameters="java.lang.String[]"/>
       </keepclasseswithmembers>
     </proguard>
-    <delete file="${jar.file}"/>
-    <move file="out.${jar.file}" tofile="${jar.file}"/>
+    <delete file="${dist.dir}/${jar.file}"/>
+    <move file="${dist.dir}/out.${jar.file}" tofile="${dist.dir}/${jar.file}"/>
   </target>
 
   <!-- JUnit -->
