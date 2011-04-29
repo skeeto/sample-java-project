@@ -1,4 +1,4 @@
 /**
- * An example ant-based Java project.
+ * An example Ant-based Java project.
  */
 package sample.java.project;
