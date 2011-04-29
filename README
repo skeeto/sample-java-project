@@ -15,6 +15,11 @@ Ant will be looking for ProGuard, which provides the "optimize"
 target. You should still be able to build the project without it. Only
 the "optimize" target will not work.
 
+Note that ProGuard and Checkstyle are needed only in the build
+classpath, not your project's classpath. That means you probably don't
+want them in lib/. They need to be where Ant can get to them -- such
+as Ant's lib/.
+
 I hate coding absolute paths in my build script and I hate including
 built files as part of the base project. My philosophy is that the
 *environment* should be set up so that the tool can easily find the
