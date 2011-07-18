@@ -10,15 +10,6 @@ import junit.framework.TestCase;
 public class SampleJavaProjectTest extends TestCase {
 
     /**
-     * JUnit boilerplate.
-     *
-     * @param name the name string
-     */
-    public SampleJavaProjectTest(final String name) {
-        super(name);
-    }
-
-    /**
      * Holds an instance of the class we are testing.
      */
     private SampleJavaProject sjp;
@@ -35,5 +26,7 @@ public class SampleJavaProjectTest extends TestCase {
      */
     public final void testAdd() {
         assertEquals(sjp.add(3, 4), 7);
+        assertEquals(sjp.add(5, -5), 0);
+        assertEquals(sjp.add(-3, 4), 1);
     }
 }
