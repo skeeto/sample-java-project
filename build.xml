@@ -13,7 +13,6 @@
   <property name="test.classes.dir" value="${build.dir}/test"/>
   <property name="dist.dir" value="dist"/>
   <property name="lib.dir" value="lib"/>
-  <property name="doc.dir" value="doc"/>
 
   <!-- Project classpath -->
   <path id="build.classpath">
@@ -66,7 +65,7 @@
   </target>
 
   <target name="javadoc" description="Generate Javadoc HTML.">
-    <javadoc destdir="${doc.dir}/javadoc">
+    <javadoc destdir="${dist.dir}/javadoc">
       <fileset dir="${src.dir}" includes="**/*.java" />
     </javadoc>
   </target>
@@ -81,7 +80,7 @@
   </target>
 
   <target name="check">
-    <checkstyle config="doc/sun_checks.xml">
+    <checkstyle config="checkstyle.xml">
       <fileset dir="src" includes="**/*.java"/>
     </checkstyle>
   </target>
