@@ -101,11 +101,8 @@
 
   <!-- JUnit -->
 
-  <target name="test-init" depends="init">
+  <target name="test-compile" depends="compile">
     <mkdir dir="${test.classes.dir}"/>
-  </target>
-
-  <target name="test-compile" depends="test-init,compile">
     <javac srcdir="${test.dir}" destdir="${test.classes.dir}"
 	   classpath="${build.classes.dir}" includeantruntime="yes">
       <compilerarg value="-Xlint"/>
