@@ -1,6 +1,10 @@
 This is just a reference for setting up a new Java project. It
 contains some of the little Ant tricks I've learned.
 
+Building this project requires that Ivy be available to Ant. All you
+need is ivy.jar in Ant's classpath (in your $CLASSPATH, $ANT_HOME/lib,
+or ~/.ant/lib).
+
 You will need to have Astyle installed and in your path for the
 "format" target to work. If it's missing, that's fine. It won't affect
 any other targets.
@@ -17,8 +21,7 @@ the "optimize" target will not work.
 
 Note that ProGuard and Checkstyle are needed only in the build
 classpath, not your project's classpath. That means you probably don't
-want them in lib/. They need to be where Ant can get to them -- such
-as Ant's lib/.
+want them in lib/. Like Ivy, they should be where Ant can get to them.
 
 I hate coding absolute paths in my build script and I hate including
 built files as part of the base project. My philosophy is that the
