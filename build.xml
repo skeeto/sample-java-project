@@ -1,5 +1,7 @@
 <?xml version="1.0"?>
-<project name="SampleJavaProject" default="jar">
+<project name="SampleJavaProject" default="jar"
+	 xmlns:ivy="antlib:org.apache.ivy.ant">
+
   <!-- Project-specific configuration -->
   <property name="package" value="sample.java.project"/>
   <property name="main.class" value="${package}.${ant.project.name}"/>
@@ -15,6 +17,7 @@
   <property name="lib.dir" value="lib"/>
 
   <!-- Project classpath -->
+  <available file="${lib.dir}" property="lib.present"/>
   <path id="build.classpath">
     <fileset dir="${lib.dir}">
       <include name="*.jar"/>
@@ -32,7 +35,12 @@
     <mkdir dir="${dist.dir}"/>
   </target>
 
-  <target name="compile" depends="init"
+  <target name="resolve" unless="lib.present"
+	  description="Retrieve dependencies with ivy.">
+    <ivy:retrieve type="jar,bundle"/>
+  </target>
+
+  <target name="compile" depends="init,resolve"
 	  description="Compile all source files.">
     <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
 	   optimize="on" debug="on" deprecation="on"
@@ -62,6 +70,7 @@
   <target name="clean" description="Delete all generated files.">
     <delete dir="${build.dir}"/>
     <delete dir="${dist.dir}"/>
+    <delete dir="${lib.dir}"/>
   </target>
 
   <target name="javadoc" description="Generate Javadoc HTML.">
@@ -114,6 +123,7 @@
       <classpath>
 	<pathelement path="${build.classes.dir}"/>
 	<pathelement path="${test.classes.dir}"/>
+	<path refid="build.classpath"/>
       </classpath>
       <batchtest>
 	<formatter type="brief" usefile="false"/>
