@@ -24,10 +24,6 @@
     </fileset>
   </path>
 
-  <!-- Additional build tools -->
-  <taskdef resource="checkstyletask.properties"/>
-  <taskdef resource="proguard/ant/task.properties"/>
-
   <!-- Targets -->
 
   <target name="init">
@@ -92,12 +88,14 @@
   </target>
 
   <target name="check">
+    <taskdef resource="checkstyletask.properties"/>
     <checkstyle config="checkstyle.xml">
       <fileset dir="src" includes="**/*.java"/>
     </checkstyle>
   </target>
 
   <target name="optimize" depends="jar">
+    <taskdef resource="proguard/ant/task.properties"/>
     <proguard>
       <libraryjar path="${java.home}/lib/rt.jar"/>
       <injar file="${dist.dir}/${jar.file}"/>
