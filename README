@@ -19,6 +19,13 @@ Ant will be looking for ProGuard, which provides the "optimize"
 target. You should still be able to build the project without it. Only
 the "optimize" target will not work.
 
+There is a "hotswap" target for replacing live code while an
+application is running. You'll need the hotswap Ant extension
+installed in Ant's classpath to use it. It's to be used alongside the
+"run-hotswap" target, which enables hotswapping in the
+JVM. Hotswapping has no practical use in this particular sample
+project because it exits immediately.
+
 Note that ProGuard and Checkstyle are needed only in the build
 classpath, not your project's classpath. That means you probably don't
 want them in lib/. Like Ivy, they should be where Ant can get to them.
