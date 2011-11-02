@@ -80,7 +80,6 @@
 
   <target name="hotswap" depends="compile">
     <taskdef name="hotswap" classname="dak.ant.taskdefs.Hotswap"/>
-    <antcall target="compile"/>
     <hotswap verbose="true" port="9000">
       <fileset dir="${build.classes.dir}" includes="**/*.class">
 	<modified/>
