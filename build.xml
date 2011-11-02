@@ -19,7 +19,6 @@
   <property name="lib.dir" value="lib"/>
 
   <!-- Project classpath -->
-  <available file="${lib.dir}" property="lib.present"/>
   <path id="build.classpath">
     <fileset dir="${lib.dir}">
       <include name="*.jar"/>
@@ -29,6 +28,7 @@
   <!-- Targets -->
 
   <target name="init">
+    <available file="${lib.dir}" property="lib.present"/>
     <mkdir dir="${build.classes.dir}"/>
     <mkdir dir="${dist.dir}"/>
   </target>
