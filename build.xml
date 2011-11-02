@@ -3,8 +3,10 @@
 	 xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <!-- Project-specific configuration -->
-  <property name="package" value="sample.java.project"/>
-  <property name="main.class" value="${package}.${ant.project.name}"/>
+  <property name="artifactId" value="sample-java-project"/>
+  <property name="version" value="1.0-SNAPSHOT"/>
+  <property name="package.main" value="sample.java.project"/>
+  <property name="main.class" value="${package.main}.${ant.project.name}"/>
   <property name="jar.file" value="${ant.project.name}.jar"/>
 
   <!-- Standard Directory Layout -->
@@ -154,5 +156,30 @@
 	<fileset dir="${test.classes.dir}"/>
       </batchtest>
     </junit>
+  </target>
+
+  <!-- Maven repository support -->
+
+  <target name="bundle" depends="jar,javadoc"
+	  description="Stage a Maven repository bundle.">
+    <!-- Pack up the artifacts -->
+    <copy file="pom.xml"
+	  tofile="${dist.dir}/bundle/${artifactId}-${version}.pom"/>
+    <copy file="${dist.dir}/${jar.file}"
+	  tofile="${dist.dir}/bundle/${artifactId}-${version}.jar"/>
+    <jar jarfile="${dist.dir}/bundle/${artifactId}-${version}-javadoc.jar">
+      <fileset dir="${dist.dir}/javadoc"/>
+    </jar>
+    <jar jarfile="${dist.dir}/bundle/${artifactId}-${version}-sources.jar">
+      <fileset dir="${src.dir}"/>
+    </jar>
+    <!-- Sign all the things. You'll need gpg-agent help here. -->
+    <apply executable="gpg">
+      <arg value="--detach-sign"/>
+      <arg value="--armor"/>
+      <fileset dir="${dist.dir}/bundle"/>
+    </apply>
+    <!-- Pack it all up -->
+    <jar destfile="${dist.dir}/bundle.jar" basedir="${dist.dir}/bundle"/>
   </target>
 </project>
