@@ -1,10 +1,12 @@
 package sample.java.project;
 
+import java.util.Timer;
+import java.util.TimerTask;
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.GnuParser;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.HelpFormatter;
 
 /**
  * The main class.
@@ -12,7 +14,10 @@ import org.apache.commons.cli.HelpFormatter;
  * This is the main class of the application. It contains the main()
  * method, the first method called.
  */
-public class SampleJavaProject {
+public class SampleJavaProject extends TimerTask {
+
+    /** The delay between printed messages. */
+    private static final long PRINT_DELAY = 1000L;
 
     /** The name to printed in the output message. */
     private static String name = "world";
@@ -28,6 +33,7 @@ public class SampleJavaProject {
         /* Set up the command line arguments. */
         Options options = new Options();
         options.addOption(new Option("name", true, "set the user's name"));
+        options.addOption(new Option("loop", "print endlessly, hotswap demo"));
         options.addOption(new Option("help", "print this help message"));
         CommandLine line = null;
         try {
@@ -46,8 +52,15 @@ public class SampleJavaProject {
         if (line.hasOption("name")) {
             name = line.getOptionValue("name");
         }
+        if (line.hasOption("loop")) {
+            new Timer().schedule(new SampleJavaProject(), 0L, PRINT_DELAY);
+        } else {
+            new SampleJavaProject().run();
+        }
+    }
 
-        /* Print out our message. */
+    @Override
+    public final void run() {
         System.out.printf("Hello, %s!\n", name);
     }
 
