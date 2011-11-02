@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ivy-module version="2.0">
-  <info organisation="com.nullprogram" module="Hypernova"/>
+  <info organisation="com.nullprogram" module="sample-java-project"/>
   <dependencies>
     <dependency org="commons-cli" name="commons-cli" rev="1.2"/>
   </dependencies>

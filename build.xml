@@ -126,17 +126,23 @@
     <move file="${dist.dir}/out.${jar.file}" tofile="${dist.dir}/${jar.file}"/>
   </target>
 
-  <!-- JUnit -->
+  <!-- Unit testing (JUnit) -->
 
-  <target name="test-compile" depends="compile">
+  <target name="test-compile" depends="compile"
+	  description="Compile all of the unit tests.">
     <mkdir dir="${test.classes.dir}"/>
     <javac srcdir="${test.dir}" destdir="${test.classes.dir}"
+	   optimize="on" debug="on" deprecation="on"
 	   classpath="${build.classes.dir}" includeantruntime="yes">
       <compilerarg value="-Xlint"/>
     </javac>
+    <copy todir="${test.classes.dir}">
+      <fileset dir="${test.dir}" excludes="**/*.java"/>
+    </copy>
   </target>
 
-  <target name="test" depends="test-compile" description="Run all tests.">
+  <target name="test" depends="test-compile"
+	  description="Run all of the unit tests.">
     <junit>
       <classpath>
 	<pathelement path="${build.classes.dir}"/>
