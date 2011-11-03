@@ -139,6 +139,7 @@
 	   optimize="on" debug="on" deprecation="on"
 	   classpath="${build.classes.dir}" includeantruntime="yes">
       <compilerarg value="-Xlint"/>
+      <classpath refid="build.classpath"/>
     </javac>
     <copy todir="${test.classes.dir}">
       <fileset dir="${test.dir}" excludes="**/*.java"/>
