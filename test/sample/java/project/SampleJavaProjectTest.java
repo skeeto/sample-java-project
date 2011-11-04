@@ -1,13 +1,15 @@
 package sample.java.project;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * A sample JUnit test.
  *
  * This test exists as a placeholder for the test unit framework.
  */
-public class SampleJavaProjectTest extends TestCase {
+public class SampleJavaProjectTest {
 
     /**
      * Holds an instance of the class we are testing.
@@ -17,6 +19,7 @@ public class SampleJavaProjectTest extends TestCase {
     /**
      * JUnit set up method.
      */
+    @Before
     public final void setUp() {
         sjp = new SampleJavaProject();
     }
@@ -24,6 +27,7 @@ public class SampleJavaProjectTest extends TestCase {
     /**
      * Tests the add() method in the main class.
      */
+    @Test
     public final void testAdd() {
         assertEquals(sjp.add(3, 4), 7);
         assertEquals(sjp.add(5, -5), 0);
