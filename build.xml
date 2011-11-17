@@ -3,11 +3,9 @@
 	 xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <!-- Project-specific configuration -->
-  <property name="artifactId" value="sample-java-project"/>
-  <property name="version" value="1.0-SNAPSHOT"/>
-  <property name="package.main" value="sample.java.project"/>
+  <loadproperties srcfile="project.properties" />
   <property name="main.class" value="${package.main}.${ant.project.name}"/>
-  <property name="jar.file" value="${ant.project.name}.jar"/>
+  <property name="base.name" value="${artifactId}-${version}"/>
 
   <!-- Standard Directory Layout -->
   <property name="src.dir" value="src"/>
@@ -53,7 +51,7 @@
 
   <target name="jar" depends="compile"
 	  description="Generate the jarfile distributable.">
-    <jar destfile="${dist.dir}/${jar.file}" basedir="${build.classes.dir}">
+    <jar destfile="${dist.dir}/${base.name}.jar" basedir="${build.classes.dir}">
       <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
       <manifest>
         <attribute name="Main-Class" value="${main.class}"/>
@@ -163,14 +161,15 @@
   <target name="bundle" depends="jar,javadoc"
 	  description="Stage a Maven repository bundle.">
     <!-- Pack up the artifacts -->
-    <copy file="pom.xml"
-	  tofile="${dist.dir}/bundle/${artifactId}-${version}.pom"/>
-    <copy file="${dist.dir}/${jar.file}"
-	  tofile="${dist.dir}/bundle/${artifactId}-${version}.jar"/>
-    <jar jarfile="${dist.dir}/bundle/${artifactId}-${version}-javadoc.jar">
+    <filter filtersfile="project.properties"/>
+    <filter token="ant.project.name" value="${ant.project.name}"/>
+    <copy file="pom.xml" filtering="true"
+	  tofile="${dist.dir}/bundle/${base.name}.pom"/>
+    <copy file="${dist.dir}/${base.name}.jar" todir="${dist.dir}/bundle/"/>
+    <jar jarfile="${dist.dir}/bundle/${base.name}-javadoc.jar">
       <fileset dir="${dist.dir}/javadoc"/>
     </jar>
-    <jar jarfile="${dist.dir}/bundle/${artifactId}-${version}-sources.jar">
+    <jar jarfile="${dist.dir}/bundle/${base.name}-sources.jar">
       <fileset dir="${src.dir}"/>
     </jar>
     <!-- Sign all the things. You'll need gpg-agent help here. -->
