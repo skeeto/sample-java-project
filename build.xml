@@ -118,21 +118,6 @@
     </checkstyle>
   </target>
 
-  <target name="optimize" depends="jar">
-    <taskdef resource="proguard/ant/task.properties"/>
-    <proguard>
-      <libraryjar path="${java.home}/lib/rt.jar"/>
-      <injar file="${dist.dir}/${jar.file}"/>
-      <outjar file="${dist.dir}/out.${jar.file}"/>
-      <keepclasseswithmembers access="public" type="class">
-	<method access="public" type="void" name="main"
-		parameters="java.lang.String[]"/>
-      </keepclasseswithmembers>
-    </proguard>
-    <delete file="${dist.dir}/${jar.file}"/>
-    <move file="${dist.dir}/out.${jar.file}" tofile="${dist.dir}/${jar.file}"/>
-  </target>
-
   <target name="tags" description="Generate a TAGS file for your editor.">
     <delete file="TAGS"/>
     <apply executable="etags">
