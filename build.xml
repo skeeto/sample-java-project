@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <project name="SampleJavaProject" default="jar"
-	 xmlns:ivy="antlib:org.apache.ivy.ant">
+         xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <!-- Project-specific configuration -->
-  <loadproperties srcfile="project.properties" />
+  <loadproperties srcfile="project.properties"/>
   <property name="main.class" value="${package.main}.${ant.project.name}"/>
   <property name="base.name" value="${artifactId}-${version}"/>
 
@@ -32,15 +32,15 @@
   </target>
 
   <target name="resolve" unless="lib.present"
-	  description="Retrieve dependencies with ivy.">
+          description="Retrieve dependencies with ivy.">
     <ivy:retrieve type="jar,bundle"/>
   </target>
 
   <target name="compile" depends="init,resolve"
-	  description="Compile all source files.">
+          description="Compile all source files.">
     <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
-	   optimize="on" debug="on" deprecation="on"
-	   includeantruntime="false">
+           optimize="on" debug="on" deprecation="on"
+           includeantruntime="false">
       <compilerarg value="-Xlint"/>
       <classpath refid="build.classpath"/>
     </javac>
@@ -50,15 +50,15 @@
   </target>
 
   <target name="jar" depends="compile"
-	  description="Generate the jarfile distributable.">
+          description="Generate the jarfile distributable.">
     <jar destfile="${dist.dir}/${base.name}.jar"
-	 basedir="${build.classes.dir}">
+         basedir="${build.classes.dir}">
       <manifest>
         <attribute name="Main-Class" value="${main.class}"/>
       </manifest>
     </jar>
     <jar destfile="${dist.dir}/${base.name}-all.jar"
-	 basedir="${build.classes.dir}">
+         basedir="${build.classes.dir}">
       <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
       <manifest>
         <attribute name="Main-Class" value="${main.class}"/>
@@ -75,9 +75,9 @@
   </target>
 
   <target name="run-hotswap" depends="compile"
-	  description="Run the application in hotswap mode.">
+          description="Run the application in hotswap mode.">
     <java classname="${main.class}" classpath="${build.classes.dir}"
-	  fork="true">
+          fork="true">
       <classpath refid="build.classpath"/>
       <jvmarg line="-Xdebug -Xrunjdwp:transport=dt_socket,address=9000,server=y,suspend=n"/>
       <arg value="--loop"/>
@@ -90,7 +90,7 @@
     <taskdef name="hotswap" classname="dak.ant.taskdefs.Hotswap"/>
     <hotswap verbose="true" port="9000">
       <fileset dir="${build.classes.dir}" includes="**/*.class">
-	<modified/>
+        <modified/>
       </fileset>
     </hotswap>
   </target>
@@ -104,8 +104,8 @@
 
   <target name="javadoc" description="Generate Javadoc HTML.">
     <javadoc destdir="${dist.dir}/javadoc"
-	     link="http://download.oracle.com/javase/6/docs/api/"
-	     sourcepath="${src.dir}"/>
+             link="http://download.oracle.com/javase/6/docs/api/"
+             sourcepath="${src.dir}"/>
   </target>
 
   <target name="format" description="Run the indenter on all source files.">
@@ -136,11 +136,11 @@
   <!-- Unit testing (JUnit) -->
 
   <target name="test-compile" depends="compile"
-	  description="Compile all of the unit tests.">
+          description="Compile all of the unit tests.">
     <mkdir dir="${test.classes.dir}"/>
     <javac srcdir="${test.dir}" destdir="${test.classes.dir}"
-	   optimize="on" debug="on" deprecation="on"
-	   classpath="${build.classes.dir}" includeantruntime="yes">
+           optimize="on" debug="on" deprecation="on"
+           classpath="${build.classes.dir}" includeantruntime="yes">
       <compilerarg value="-Xlint"/>
       <classpath refid="build.classpath"/>
     </javac>
@@ -150,16 +150,16 @@
   </target>
 
   <target name="test" depends="test-compile"
-	  description="Run all of the unit tests.">
+          description="Run all of the unit tests.">
     <junit>
       <classpath>
-	<pathelement path="${build.classes.dir}"/>
-	<pathelement path="${test.classes.dir}"/>
-	<path refid="build.classpath"/>
+        <pathelement path="${build.classes.dir}"/>
+        <pathelement path="${test.classes.dir}"/>
+        <path refid="build.classpath"/>
       </classpath>
       <batchtest>
-	<formatter type="brief" usefile="false"/>
-	<fileset dir="${test.classes.dir}"/>
+        <formatter type="brief" usefile="false"/>
+        <fileset dir="${test.classes.dir}"/>
       </batchtest>
     </junit>
   </target>
@@ -167,12 +167,12 @@
   <!-- Maven repository support -->
 
   <target name="bundle" depends="jar,javadoc"
-	  description="Stage a Maven repository bundle.">
+          description="Stage a Maven repository bundle.">
     <!-- Pack up the artifacts -->
     <filter filtersfile="project.properties"/>
     <filter token="ant.project.name" value="${ant.project.name}"/>
     <copy file="pom.xml" filtering="true"
-	  tofile="${dist.dir}/bundle/${base.name}.pom"/>
+          tofile="${dist.dir}/bundle/${base.name}.pom"/>
     <copy file="${dist.dir}/${base.name}.jar" todir="${dist.dir}/bundle/"/>
     <jar jarfile="${dist.dir}/bundle/${base.name}-javadoc.jar">
       <fileset dir="${dist.dir}/javadoc"/>
