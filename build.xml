@@ -103,9 +103,9 @@
   </target>
 
   <target name="javadoc" description="Generate Javadoc HTML.">
-    <javadoc destdir="${dist.dir}/javadoc">
-      <fileset dir="${src.dir}" includes="**/*.java" />
-    </javadoc>
+    <javadoc destdir="${dist.dir}/javadoc"
+	     link="http://download.oracle.com/javase/6/docs/api/"
+	     sourcepath="${src.dir}"/>
   </target>
 
   <target name="format" description="Run the indenter on all source files.">
