@@ -117,10 +117,11 @@
     </apply>
   </target>
 
-  <target name="check">
+  <target name="check" depends="compile">
     <taskdef resource="checkstyletask.properties"/>
     <checkstyle config="checkstyle.xml">
       <fileset dir="src" includes="**/*.java"/>
+      <classpath path="${build.classes.dir}"/>
     </checkstyle>
   </target>
 
