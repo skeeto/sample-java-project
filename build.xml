@@ -14,33 +14,21 @@
   <property name="build.classes.dir" value="${build.dir}/classes"/>
   <property name="test.classes.dir" value="${build.dir}/test"/>
   <property name="dist.dir" value="dist"/>
-  <property name="lib.dir" value="lib"/>
-
-  <!-- Project classpath -->
-  <path id="build.classpath">
-    <fileset dir="${lib.dir}">
-      <include name="*.jar"/>
-    </fileset>
-  </path>
 
   <!-- Targets -->
 
-  <target name="init">
-    <available file="${lib.dir}" property="lib.present"/>
+  <target name="resolve" description="Retrieve dependencies with Ivy.">
+    <ivy:resolve log="quiet"/>
+    <ivy:cachepath conf="build" pathid="build.classpath"/>
+    <ivy:cachepath conf="default" pathid="runtime.classpath"/>
+    <ivy:cachefileset conf="default" setid="runtime.fileset"/>
+    <ivy:cachepath conf="test" pathid="test.classpath"/>
+  </target>
+
+  <target name="compile" depends="resolve" description="Compile all sources.">
     <mkdir dir="${build.classes.dir}"/>
-    <mkdir dir="${dist.dir}"/>
-  </target>
-
-  <target name="resolve" unless="lib.present"
-          description="Retrieve dependencies with ivy.">
-    <ivy:retrieve type="jar,bundle"/>
-  </target>
-
-  <target name="compile" depends="init,resolve"
-          description="Compile all source files.">
     <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
-           optimize="on" debug="on" deprecation="on"
-           includeantruntime="false">
+           optimize="on" debug="on" deprecation="on" includeantruntime="no">
       <compilerarg value="-Xlint"/>
       <classpath refid="build.classpath"/>
     </javac>
@@ -59,7 +47,7 @@
     </jar>
     <jar destfile="${dist.dir}/${base.name}-all.jar"
          basedir="${build.classes.dir}">
-      <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
+      <zipgroupfileset refid="runtime.fileset"/>
       <manifest>
         <attribute name="Main-Class" value="${main.class}"/>
       </manifest>
@@ -117,10 +105,11 @@
     </apply>
   </target>
 
-  <target name="check">
-    <taskdef resource="checkstyletask.properties"/>
+  <target name="check" depends="resolve">
+    <taskdef resource="checkstyletask.properties"
+             classpathref="build.classpath"/>
     <checkstyle config="checkstyle.xml">
-      <fileset dir="src" includes="**/*.java"/>
+      <fileset dir="${src.dir}" includes="**/*.java"/>
     </checkstyle>
   </target>
 
@@ -135,27 +124,26 @@
 
   <!-- Unit testing (JUnit) -->
 
-  <target name="test-compile" depends="compile"
-          description="Compile all of the unit tests.">
+  <target name="test-compile" depends="compile">
     <mkdir dir="${test.classes.dir}"/>
     <javac srcdir="${test.dir}" destdir="${test.classes.dir}"
            optimize="on" debug="on" deprecation="on"
-           classpath="${build.classes.dir}" includeantruntime="yes">
+           classpath="${build.classes.dir}" includeantruntime="no">
       <compilerarg value="-Xlint"/>
       <classpath refid="build.classpath"/>
+      <classpath refid="test.classpath"/>
     </javac>
     <copy todir="${test.classes.dir}">
       <fileset dir="${test.dir}" excludes="**/*.java"/>
     </copy>
   </target>
 
-  <target name="test" depends="test-compile"
-          description="Run all of the unit tests.">
-    <junit>
+  <target name="test" depends="test-compile" description="Run the unit tests.">
+    <junit fork="yes">
       <classpath>
         <pathelement path="${build.classes.dir}"/>
         <pathelement path="${test.classes.dir}"/>
-        <path refid="build.classpath"/>
+        <path refid="test.classpath"/>
       </classpath>
       <batchtest>
         <formatter type="brief" usefile="false"/>
