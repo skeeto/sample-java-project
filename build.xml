@@ -11,8 +11,6 @@
   <property name="src.dir" value="src"/>
   <property name="test.dir" value="test"/>
   <property name="build.dir" value="build"/>
-  <property name="build.classes.dir" value="${build.dir}/classes"/>
-  <property name="test.classes.dir" value="${build.dir}/test"/>
   <property name="dist.dir" value="dist"/>
 
   <!-- Targets -->
@@ -26,13 +24,13 @@
   </target>
 
   <target name="compile" depends="resolve" description="Compile all sources.">
-    <mkdir dir="${build.classes.dir}"/>
-    <javac srcdir="${src.dir}" destdir="${build.classes.dir}"
+    <mkdir dir="${build.dir}/classes"/>
+    <javac srcdir="${src.dir}" destdir="${build.dir}/classes"
            optimize="on" debug="on" deprecation="on" includeantruntime="no">
       <compilerarg value="-Xlint"/>
       <classpath refid="build.classpath"/>
     </javac>
-    <copy todir="${build.classes.dir}">
+    <copy todir="${build.dir}/classes">
       <fileset dir="${src.dir}" excludes="**/*.java"/>
     </copy>
   </target>
@@ -40,13 +38,13 @@
   <target name="jar" depends="compile"
           description="Generate the jarfile distributable.">
     <jar destfile="${dist.dir}/${base.name}.jar"
-         basedir="${build.classes.dir}">
+         basedir="${build.dir}/classes">
       <manifest>
         <attribute name="Main-Class" value="${main.class}"/>
       </manifest>
     </jar>
     <jar destfile="${dist.dir}/${base.name}-all.jar"
-         basedir="${build.classes.dir}">
+         basedir="${build.dir}/classes">
       <zipgroupfileset refid="runtime.fileset"/>
       <manifest>
         <attribute name="Main-Class" value="${main.class}"/>
@@ -55,7 +53,7 @@
   </target>
 
   <target name="run" depends="compile" description="Run the application.">
-    <java classname="${main.class}" classpath="${build.classes.dir}">
+    <java classname="${main.class}" classpath="${build.dir}/classes">
       <classpath refid="build.classpath"/>
       <arg value="--name"/>
       <arg value="Java"/>
@@ -64,7 +62,7 @@
 
   <target name="run-hotswap" depends="compile"
           description="Run the application in hotswap mode.">
-    <java classname="${main.class}" classpath="${build.classes.dir}"
+    <java classname="${main.class}" classpath="${build.dir}/classes"
           fork="true">
       <classpath refid="build.classpath"/>
       <jvmarg line="-Xdebug -Xrunjdwp:transport=dt_socket,address=9000,server=y,suspend=n"/>
@@ -77,7 +75,7 @@
   <target name="hotswap" depends="compile">
     <taskdef name="hotswap" classname="dak.ant.taskdefs.Hotswap"/>
     <hotswap verbose="true" port="9000">
-      <fileset dir="${build.classes.dir}" includes="**/*.class">
+      <fileset dir="${build.dir}/classes" includes="**/*.class">
         <modified/>
       </fileset>
     </hotswap>
@@ -120,7 +118,7 @@
              classpathref="build.classpath"/>
     <checkstyle config="checkstyle.xml">
       <fileset dir="${src.dir}" includes="**/*.java"/>
-      <classpath path="${build.classes.dir}"/>
+      <classpath path="${build.dir}/classes"/>
     </checkstyle>
   </target>
 
@@ -136,15 +134,15 @@
   <!-- Unit testing (JUnit) -->
 
   <target name="test-compile" depends="compile">
-    <mkdir dir="${test.classes.dir}"/>
-    <javac srcdir="${test.dir}" destdir="${test.classes.dir}"
+    <mkdir dir="${build.dir}/test"/>
+    <javac srcdir="${test.dir}" destdir="${build.dir}/test"
            optimize="on" debug="on" deprecation="on"
-           classpath="${build.classes.dir}" includeantruntime="no">
+           classpath="${build.dir}/classes" includeantruntime="no">
       <compilerarg value="-Xlint"/>
       <classpath refid="build.classpath"/>
       <classpath refid="test.classpath"/>
     </javac>
-    <copy todir="${test.classes.dir}">
+    <copy todir="${build.dir}/test">
       <fileset dir="${test.dir}" excludes="**/*.java"/>
     </copy>
   </target>
@@ -152,13 +150,13 @@
   <target name="test" depends="test-compile" description="Run the unit tests.">
     <junit fork="yes">
       <classpath>
-        <pathelement path="${build.classes.dir}"/>
-        <pathelement path="${test.classes.dir}"/>
+        <pathelement path="${build.dir}/classes"/>
+        <pathelement path="${build.dir}/test"/>
         <path refid="test.classpath"/>
       </classpath>
       <batchtest>
         <formatter type="brief" usefile="false"/>
-        <fileset dir="${test.classes.dir}"/>
+        <fileset dir="${build.dir}/test"/>
       </batchtest>
     </junit>
   </target>
