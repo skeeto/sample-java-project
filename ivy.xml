@@ -8,7 +8,7 @@
   </configurations>
   <dependencies>
     <dependency org="commons-cli" name="commons-cli" rev="1.2"
-                conf="default->default"/>
+                conf="default"/>
     <dependency org="junit" name="junit" rev="4.10"
                 conf="test->default"/>
     <dependency org="org.projectlombok" name="lombok" rev="0.10.4"
