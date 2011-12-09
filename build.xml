@@ -99,7 +99,9 @@
     </delombok>
     <javadoc destdir="${dist.dir}/javadoc"
              link="http://download.oracle.com/javase/6/docs/api/"
-             sourcepath="${build.dir}/src">
+             sourcepath="${build.dir}/src"
+             Doctitle="${ant.project.name} ${version}"
+             Windowtitle="${ant.project.name} ${version}">
       <classpath refid="build.classpath"/>
     </javadoc>
   </target>
@@ -118,6 +120,7 @@
              classpathref="build.classpath"/>
     <checkstyle config="checkstyle.xml">
       <fileset dir="${src.dir}" includes="**/*.java"/>
+      <classpath path="${build.classes.dir}"/>
     </checkstyle>
   </target>
 
