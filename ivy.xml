@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ivy-module version="2.0">
+<ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
   <info organisation="com.nullprogram" module="sample-java-project"/>
   <configurations>
     <conf name="default"/>
@@ -7,6 +7,22 @@
     <conf name="test" extends="build" visibility="private"/>
   </configurations>
   <dependencies>
+    <dependency org="org.lwjgl.lwjgl" name="lwjgl" rev="2.8.2"
+                conf="default"/>
+    <dependency org="org.lwjgl.lwjgl" name="lwjgl-platform" rev="2.8.2"
+                conf="default">
+      <artifact name="lwjgl-platform" e:classifier="natives-linux"/>
+      <artifact name="lwjgl-platform" e:classifier="natives-windows"/>
+      <artifact name="lwjgl-platform" e:classifier="natives-osx"/>
+    </dependency>
+    <dependency org="net.java.jinput" name="jinput-platform" rev="2.0.5"
+                conf="default">
+      <artifact name="jinput-platform" e:classifier="natives-linux"/>
+      <artifact name="jinput-platform" e:classifier="natives-windows"/>
+      <artifact name="jinput-platform" e:classifier="natives-osx"/>
+    </dependency>
+    <dependency org="com.nullprogram" name="native-guide" rev="0.2"
+                conf="default"/>
     <dependency org="commons-cli" name="commons-cli" rev="1.2"
                 conf="default"/>
     <dependency org="junit" name="junit" rev="4.10"
