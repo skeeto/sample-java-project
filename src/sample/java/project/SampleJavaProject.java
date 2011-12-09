@@ -2,6 +2,11 @@ package sample.java.project;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.Setter;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -9,24 +14,22 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 /**
- * The main class.
- *
- * This is the main class of the application. It contains the main()
- * method, the first method called.
+ * The main class of the application. It contains the main() method,
+ * the first method called.
  */
+@NoArgsConstructor
+@AllArgsConstructor
 public class SampleJavaProject extends TimerTask {
 
     /** The delay between printed messages. */
     private static final long PRINT_DELAY = 1000L;
 
     /** The name to printed in the output message. */
-    private static String name = "world";
+    @Getter @Setter @NonNull
+    private String name = "world";
 
     /**
-     * The main class.
-     *
      * Print the "Hello, world!" string.
-     *
      * @param args application input arguments
      */
     public static void main(final String[] args) {
@@ -44,37 +47,26 @@ public class SampleJavaProject extends TimerTask {
         }
 
         /* Handle each argument. */
+        SampleJavaProject sjp;
         if (line.hasOption("help")) {
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("SampleJavaProject [options]", options);
             System.exit(0);
         }
         if (line.hasOption("name")) {
-            name = line.getOptionValue("name");
+            sjp = new SampleJavaProject(line.getOptionValue("name"));
+        } else {
+            sjp = new SampleJavaProject();
         }
         if (line.hasOption("loop")) {
-            new Timer().schedule(new SampleJavaProject(), 0L, PRINT_DELAY);
+            new Timer().schedule(sjp, 0L, PRINT_DELAY);
         } else {
-            new SampleJavaProject().run();
+            sjp.run();
         }
     }
 
     @Override
     public final void run() {
         System.out.printf("Hello, %s!\n", name);
-    }
-
-    /**
-     * Add two integers together.
-     *
-     * This is a dumb method that is here for the purposed of unit
-     * testing.
-     *
-     * @param  a first number
-     * @param  b second number
-     * @return sum of the numbers
-     */
-    public final int add(final int a, final int b) {
-        return a + b;
     }
 }

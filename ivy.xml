@@ -11,6 +11,8 @@
                 conf="default->default"/>
     <dependency org="junit" name="junit" rev="4.10"
                 conf="test->default"/>
+    <dependency org="org.projectlombok" name="lombok" rev="0.10.4"
+                conf="build->default"/>
     <dependency org="com.puppycrawl.tools" name="checkstyle" rev="5.5"
                 conf="build->default"/>
   </dependencies>

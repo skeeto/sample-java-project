@@ -1,13 +1,12 @@
 package sample.java.project;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * A sample JUnit test.
- *
- * This test exists as a placeholder for the test unit framework.
+ * Sample JUnit tests.
  */
 public class SampleJavaProjectTest {
 
@@ -25,12 +24,19 @@ public class SampleJavaProjectTest {
     }
 
     /**
-     * Tests the add() method in the main class.
+     * Tests the generated setter and getter methods.
      */
     @Test
-    public final void testAdd() {
-        assertEquals(sjp.add(3, 4), 7);
-        assertEquals(sjp.add(5, -5), 0);
-        assertEquals(sjp.add(-3, 4), 1);
+    public final void testGetSet() {
+        sjp.setName("foo");
+        assertEquals("foo", sjp.getName());
+    }
+
+    /**
+     * Tests that the null check in the setter.
+     */
+    @Test(expected=NullPointerException.class)
+    public final void nullTest() {
+        sjp.setName(null);
     }
 }
