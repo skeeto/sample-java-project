@@ -24,7 +24,7 @@ public class SampleJavaProject extends TimerTask {
     /** The delay between printed messages. */
     private static final long PRINT_DELAY = 1000L;
 
-    /** The name to printed in the output message. */
+    /** The name to be printed in the output message. */
     @Getter @Setter @NonNull
     private String name = "world";
 
