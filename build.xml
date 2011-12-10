@@ -178,7 +178,7 @@
       <fileset dir="${src.dir}"/>
     </jar>
     <!-- Sign all the things. You'll need gpg-agent help here. -->
-    <apply executable="gpg">
+    <apply executable="gpg" failonerror="true">
       <arg value="--detach-sign"/>
       <arg value="--armor"/>
       <fileset dir="${dist.dir}/bundle"/>
