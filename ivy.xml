@@ -21,6 +21,8 @@
       <artifact name="jinput-platform" e:classifier="natives-windows"/>
       <artifact name="jinput-platform" e:classifier="natives-osx"/>
     </dependency>
+    <dependency org="org.lwjgl.lwjgl" name="lwjgl_util" rev="2.8.2"
+                conf="default"/>
     <dependency org="com.nullprogram" name="native-guide" rev="0.2"
                 conf="default"/>
     <dependency org="commons-cli" name="commons-cli" rev="1.2"
