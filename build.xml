@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
-<project name="SampleJavaProject" default="jar"
+<project name="SampleServletProject" default="war"
          xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <!-- Project-specific configuration -->
   <loadproperties srcfile="project.properties"/>
-  <property name="main.class" value="${package.main}.${ant.project.name}"/>
   <property name="base.name" value="${artifactId}-${version}"/>
 
   <!-- Standard Directory Layout -->
   <property name="src.dir" value="src"/>
+  <property name="webapp.dir" value="webapp"/>
   <property name="test.dir" value="test"/>
   <property name="build.dir" value="build"/>
   <property name="dist.dir" value="dist"/>
@@ -35,50 +35,23 @@
     </copy>
   </target>
 
-  <target name="jar" depends="compile"
-          description="Generate the jarfile distributable.">
-    <jar destfile="${dist.dir}/${base.name}.jar"
-         basedir="${build.dir}/classes">
-      <manifest>
-        <attribute name="Main-Class" value="${main.class}"/>
-      </manifest>
-    </jar>
-    <jar destfile="${dist.dir}/${base.name}-all.jar"
-         basedir="${build.dir}/classes">
-      <zipgroupfileset refid="runtime.fileset"/>
-      <manifest>
-        <attribute name="Main-Class" value="${main.class}"/>
-      </manifest>
-    </jar>
+  <target name="war" depends="compile"
+          description="Generate the warfile distributable.">
+    <war destfile="${dist.dir}/${base.name}.war"
+         basedir="${webapp.dir}" webxml="web.xml">
+      <lib refid="runtime.fileset"/>
+      <classes dir="${build.dir}/classes"/>
+    </war>
   </target>
 
-  <target name="run" depends="compile" description="Run the application.">
-    <java classname="${main.class}" classpath="${build.dir}/classes">
-      <classpath refid="build.classpath"/>
-      <arg value="--name"/>
-      <arg value="Java"/>
-    </java>
-  </target>
-
-  <target name="run-hotswap" depends="compile"
-          description="Run the application in hotswap mode.">
-    <java classname="${main.class}" classpath="${build.dir}/classes"
-          fork="true">
-      <classpath refid="build.classpath"/>
-      <jvmarg line="-Xdebug -Xrunjdwp:transport=dt_socket,address=9000,server=y,suspend=n"/>
-      <arg value="--loop"/>
-      <arg value="--name"/>
-      <arg value="Java"/>
-    </java>
-  </target>
-
-  <target name="hotswap" depends="compile">
-    <taskdef name="hotswap" classname="dak.ant.taskdefs.Hotswap"/>
-    <hotswap verbose="true" port="9000">
-      <fileset dir="${build.dir}/classes" includes="**/*.class">
-        <modified/>
-      </fileset>
-    </hotswap>
+  <target name="run" depends="war" description="Run the webapp.">
+    <taskdef classpathref="test.classpath" resource="tasks.properties"
+             loaderref="jetty.loader"/>
+    <property name="temp.dir" value="${java.io.tmpdir}/${user.name}-jetty"/>
+    <jetty tempDirectory="${temp.dir}">
+      <webapp contextpath="/" warfile="${dist.dir}/${base.name}.war"/>
+    </jetty>
+    <delete dir="${temp.dir}"/>
   </target>
 
   <target name="clean" description="Delete all generated files.">
@@ -159,31 +132,5 @@
         <fileset dir="${build.dir}/test"/>
       </batchtest>
     </junit>
-  </target>
-
-  <!-- Maven repository support -->
-
-  <target name="bundle" depends="jar,javadoc"
-          description="Stage a Maven repository bundle.">
-    <!-- Pack up the artifacts -->
-    <filter filtersfile="project.properties"/>
-    <filter token="ant.project.name" value="${ant.project.name}"/>
-    <copy file="pom.xml" filtering="true"
-          tofile="${dist.dir}/bundle/${base.name}.pom"/>
-    <copy file="${dist.dir}/${base.name}.jar" todir="${dist.dir}/bundle/"/>
-    <jar jarfile="${dist.dir}/bundle/${base.name}-javadoc.jar">
-      <fileset dir="${dist.dir}/javadoc"/>
-    </jar>
-    <jar jarfile="${dist.dir}/bundle/${base.name}-sources.jar">
-      <fileset dir="${src.dir}"/>
-    </jar>
-    <!-- Sign all the things. You'll need gpg-agent help here. -->
-    <apply executable="gpg">
-      <arg value="--detach-sign"/>
-      <arg value="--armor"/>
-      <fileset dir="${dist.dir}/bundle"/>
-    </apply>
-    <!-- Pack it all up -->
-    <jar destfile="${dist.dir}/bundle.jar" basedir="${dist.dir}/bundle"/>
   </target>
 </project>
