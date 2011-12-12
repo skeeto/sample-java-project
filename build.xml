@@ -119,6 +119,7 @@
     <checkstyle config="checkstyle.xml">
       <fileset dir="${src.dir}" includes="**/*.java"/>
       <classpath path="${build.dir}/classes"/>
+      <classpath refid="build.classpath"/>
     </checkstyle>
   </target>
 
