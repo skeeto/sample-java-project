@@ -65,7 +65,9 @@ public abstract class Shader {
     }
 
     /**
-     * Disposes of this shader and the system resources it is using.
+     * Disposes of this shader and the system resources it is
+     * using. This can be safely called multiple times, but it is not
+     * thread-safe.
      */
     public void dispose() {
         if (!disposed) {
