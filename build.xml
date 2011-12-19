@@ -24,6 +24,7 @@
   </target>
 
   <target name="compile" depends="resolve" description="Compile all sources.">
+    <mkdir dir="${dist.dir}"/>
     <mkdir dir="${build.dir}/classes"/>
     <javac srcdir="${src.dir}" destdir="${build.dir}/classes"
            optimize="on" debug="on" deprecation="on" includeantruntime="no">
