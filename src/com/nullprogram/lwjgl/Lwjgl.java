@@ -1,6 +1,9 @@
 package com.nullprogram.lwjgl;
 
 import com.nullprogram.guide.Arch;
+import java.nio.ByteBuffer;
+import java.nio.FloatBuffer;
+import org.lwjgl.BufferUtils;
 import static com.nullprogram.guide.NativeGuide.prepare;
 
 /**
@@ -34,5 +37,23 @@ public final class Lwjgl {
         prepare(Arch.WINDOWS_32, "/lwjgl.dll");
         prepare(Arch.WINDOWS_32, "/OpenAL32.dll");
         prepare(Arch.WINDOWS_64, "/OpenAL64.dll");
+    }
+
+    /**
+     * Make a new direct FloatBuffer based on a float array.
+     * @param in  the float array to be wrapped
+     * @return a direct FloatBuffer
+     */
+    public static FloatBuffer toBuffer(final float[] in) {
+        return BufferUtils.createFloatBuffer(in.length).put(in);
+    }
+
+    /**
+     * Make a new direct ByteBuffer based on a byte array.
+     * @param in  the byte array to be wrapped
+     * @return a direct ByteBuffer
+     */
+    public static ByteBuffer toBuffer(final byte[] in) {
+        return BufferUtils.createByteBuffer(in.length).put(in);
     }
 }
