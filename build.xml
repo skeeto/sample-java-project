@@ -21,6 +21,7 @@
     <ivy:cachepath conf="default" pathid="runtime.classpath"/>
     <ivy:cachefileset conf="default" setid="runtime.fileset"/>
     <ivy:cachepath conf="test" pathid="test.classpath"/>
+    <ivy:cachepath conf="analysis" pathid="analysis.classpath"/>
   </target>
 
   <target name="compile" depends="resolve" description="Compile all sources.">
@@ -115,7 +116,7 @@
 
   <target name="check" depends="resolve">
     <taskdef resource="checkstyletask.properties"
-             classpathref="build.classpath"/>
+             classpathref="analysis.classpath"/>
     <checkstyle config="checkstyle.xml">
       <fileset dir="${src.dir}" includes="**/*.java"/>
       <classpath path="${build.dir}/classes"/>
@@ -129,6 +130,16 @@
       <fileset dir="${src.dir}" includes="**/*.java"/>
       <fileset dir="${test.dir}" includes="**/*.java"/>
     </apply>
+  </target>
+
+  <target name="findbugs" depends="compile" description="Run FindBugs.">
+    <taskdef classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
+             name="findbugs" classpathref="analysis.classpath"/>
+    <findbugs output="emacs" classpathref="analysis.classpath" pluginList="">
+      <auxclasspath refid="analysis.classpath"/>
+      <sourcepath path="${src.dir}"/>
+      <class location="${build.dir}/classes"/>
+    </findbugs>
   </target>
 
   <!-- Unit testing (JUnit) -->
