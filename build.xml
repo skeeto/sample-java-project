@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
-<project name="SampleJavaProject" default="jar"
-         xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="" default="jar" xmlns:ivy="antlib:org.apache.ivy.ant">
 
   <!-- Project-specific configuration -->
-  <loadproperties srcfile="project.properties"/>
-  <property name="main.class" value="${package.main}.${ant.project.name}"/>
+  <property name="artifactId" value=""/>
+  <property name="description" value=""/>
+  <property name="version" value="0.1"/>
+  <property name="package.main" value="com.nullprogram.${artifactId}"/>
+  <property name="main.class" value="${package.main}.Launcher"/>
   <property name="base.name" value="${artifactId}-${version}"/>
 
   <!-- Standard Directory Layout -->
@@ -62,27 +64,6 @@
     </java>
   </target>
 
-  <target name="run-hotswap" depends="compile"
-          description="Run the application in hotswap mode.">
-    <java classname="${main.class}" classpath="${build.dir}/classes"
-          fork="true">
-      <classpath refid="build.classpath"/>
-      <jvmarg line="-Xdebug -Xrunjdwp:transport=dt_socket,address=9000,server=y,suspend=n"/>
-      <arg value="--loop"/>
-      <arg value="--name"/>
-      <arg value="Java"/>
-    </java>
-  </target>
-
-  <target name="hotswap" depends="compile">
-    <taskdef name="hotswap" classname="dak.ant.taskdefs.Hotswap"/>
-    <hotswap verbose="true" port="9000">
-      <fileset dir="${build.dir}/classes" includes="**/*.class">
-        <modified/>
-      </fileset>
-    </hotswap>
-  </target>
-
   <target name="clean" description="Delete all generated files.">
     <delete dir="${build.dir}"/>
     <delete dir="${dist.dir}"/>
@@ -105,15 +86,6 @@
     </javadoc>
   </target>
 
-  <target name="format" description="Run the indenter on all source files.">
-    <apply executable="astyle">
-      <arg value="--mode=java"/>
-      <arg value="--suffix=none"/>
-      <fileset dir="${src.dir}" includes="**/*.java"/>
-      <fileset dir="${test.dir}" includes="**/*.java"/>
-    </apply>
-  </target>
-
   <target name="check" depends="resolve">
     <taskdef resource="checkstyletask.properties"
              classpathref="analysis.classpath"/>
@@ -121,25 +93,6 @@
       <fileset dir="${src.dir}" includes="**/*.java"/>
       <classpath path="${build.dir}/classes"/>
     </checkstyle>
-  </target>
-
-  <target name="tags" description="Generate a TAGS file for your editor.">
-    <delete file="TAGS"/>
-    <apply executable="etags">
-      <arg value="-a"/>
-      <fileset dir="${src.dir}" includes="**/*.java"/>
-      <fileset dir="${test.dir}" includes="**/*.java"/>
-    </apply>
-  </target>
-
-  <target name="findbugs" depends="compile" description="Run FindBugs.">
-    <taskdef classname="edu.umd.cs.findbugs.anttask.FindBugsTask"
-             name="findbugs" classpathref="analysis.classpath"/>
-    <findbugs output="emacs" classpathref="analysis.classpath" pluginList="">
-      <auxclasspath refid="analysis.classpath"/>
-      <sourcepath path="${src.dir}"/>
-      <class location="${build.dir}/classes"/>
-    </findbugs>
   </target>
 
   <!-- Unit testing (JUnit) -->
@@ -170,31 +123,5 @@
         <fileset dir="${build.dir}/test"/>
       </batchtest>
     </junit>
-  </target>
-
-  <!-- Maven repository support -->
-
-  <target name="bundle" depends="jar,javadoc"
-          description="Stage a Maven repository bundle.">
-    <!-- Pack up the artifacts -->
-    <filter filtersfile="project.properties"/>
-    <filter token="ant.project.name" value="${ant.project.name}"/>
-    <copy file="pom.xml" filtering="true"
-          tofile="${dist.dir}/bundle/${base.name}.pom"/>
-    <copy file="${dist.dir}/${base.name}.jar" todir="${dist.dir}/bundle/"/>
-    <jar jarfile="${dist.dir}/bundle/${base.name}-javadoc.jar">
-      <fileset dir="${dist.dir}/javadoc"/>
-    </jar>
-    <jar jarfile="${dist.dir}/bundle/${base.name}-sources.jar">
-      <fileset dir="${src.dir}"/>
-    </jar>
-    <!-- Sign all the things. You'll need gpg-agent help here. -->
-    <apply executable="gpg" failonerror="true">
-      <arg value="--detach-sign"/>
-      <arg value="--armor"/>
-      <fileset dir="${dist.dir}/bundle"/>
-    </apply>
-    <!-- Pack it all up -->
-    <jar destfile="${dist.dir}/bundle.jar" basedir="${dist.dir}/bundle"/>
   </target>
 </project>
