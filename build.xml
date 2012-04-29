@@ -58,9 +58,7 @@
 
   <target name="run" depends="compile" description="Run the application.">
     <java classname="${main.class}" classpath="${build.dir}/classes">
-      <classpath refid="build.classpath"/>
-      <arg value="--name"/>
-      <arg value="Java"/>
+      <classpath refid="runtime.classpath"/>
     </java>
   </target>
 
