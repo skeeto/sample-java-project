@@ -8,14 +8,17 @@
     <conf name="analysis" extends="build" visibility="private"/>
   </configurations>
   <dependencies>
+    <!-- Run -->
+
+    <!-- Build -->
     <dependency org="org.projectlombok" name="lombok" rev="0.10.4"
                 conf="build->default"/>
 
-    <!-- Unit testing -->
+    <!-- Unit Test -->
     <dependency org="junit" name="junit" rev="4.10"
                 conf="test->default"/>
 
-    <!-- Static analysis -->
+    <!-- Static Analysis -->
     <dependency org="com.puppycrawl.tools" name="checkstyle" rev="5.5"
                 conf="analysis->default"/>
   </dependencies>
