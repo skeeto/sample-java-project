@@ -114,15 +114,6 @@
     </apply>
   </target>
 
-  <target name="check" depends="resolve">
-    <taskdef resource="checkstyletask.properties"
-             classpathref="analysis.classpath"/>
-    <checkstyle config="checkstyle.xml">
-      <fileset dir="${src.dir}" includes="**/*.java"/>
-      <classpath path="${build.dir}/classes"/>
-    </checkstyle>
-  </target>
-
   <target name="tags" description="Generate a TAGS file for your editor.">
     <delete file="TAGS"/>
     <apply executable="etags">
@@ -130,6 +121,15 @@
       <fileset dir="${src.dir}" includes="**/*.java"/>
       <fileset dir="${test.dir}" includes="**/*.java"/>
     </apply>
+  </target>
+
+  <target name="check" depends="resolve" description="Run Checkstyle.">
+    <taskdef resource="checkstyletask.properties"
+             classpathref="analysis.classpath"/>
+    <checkstyle config="checkstyle.xml">
+      <fileset dir="${src.dir}" includes="**/*.java"/>
+      <classpath path="${build.dir}/classes"/>
+    </checkstyle>
   </target>
 
   <target name="findbugs" depends="compile" description="Run FindBugs.">
@@ -142,7 +142,7 @@
     </findbugs>
   </target>
 
-  <target name="pmd" depends="resolve">
+  <target name="pmd" depends="resolve" description="Run PMD on the code.">
     <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask"
              classpathref="analysis.classpath"/>
     <pmd>
@@ -153,6 +153,9 @@
       </fileset>
     </pmd>
   </target>
+
+  <target name="analyze" depends="check,pmd,findbugs"
+          description="Run all static analysis tools."/>
 
   <!-- Unit testing (JUnit) -->
 
