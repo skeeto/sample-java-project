@@ -142,6 +142,18 @@
     </findbugs>
   </target>
 
+  <target name="pmd" depends="resolve">
+    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask"
+             classpathref="analysis.classpath"/>
+    <pmd>
+      <ruleset>pmd.xml</ruleset>
+      <formatter type="emacs" toConsole="true"/>
+      <fileset dir="${src.dir}">
+        <include name="**/*.java"/>
+      </fileset>
+    </pmd>
+  </target>
+
   <!-- Unit testing (JUnit) -->
 
   <target name="test-compile" depends="compile">

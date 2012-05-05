@@ -10,19 +10,22 @@
   <dependencies>
     <dependency org="commons-cli" name="commons-cli" rev="1.2"
                 conf="default"/>
+
+    <!-- Build -->
     <dependency org="org.projectlombok" name="lombok" rev="0.10.4"
                 conf="build->default"/>
 
-    <!-- Unit testing -->
+    <!-- Unit Test -->
     <dependency org="junit" name="junit" rev="4.10"
                 conf="test->default"/>
 
-    <!-- Static analysis -->
+    <!-- Static Analysis -->
     <dependency org="com.puppycrawl.tools" name="checkstyle" rev="5.5"
                 conf="analysis->default"/>
-    <dependency org="net.sourceforge.findbugs" name="findbugs" rev="1.3.7"
+    <dependency org="com.google.code.findbugs" name="findbugs" rev="2.0.0"
                 conf="analysis->default"/>
-    <dependency org="jaxen" name="jaxen" rev="1.1.1"
-                conf="analysis->default"/>  <!-- (fix) findbugs missing dep -->
+        <!-- note: due to FindBugs BCEL conflict, list PMD last. -->
+    <dependency org="net.sourceforge.pmd" name="pmd" rev="5.0.0"
+                conf="analysis->default"/>
   </dependencies>
 </ivy-module>

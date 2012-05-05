@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<ruleset name="custom-ruleset">
+  <description>Custom set of preferred, sane rules</description>
+  <!-- This ruleset excludes things already covered by checkstyle. -->
+
+  <rule ref="rulesets/java/design.xml">
+    <!-- This ignores any explanation in the Javadoc. Bad. -->
+    <exclude name="UncommentedEmptyConstructor"/>
+    <!-- I disagree. -->
+    <exclude name="ConfusingTernary"/>
+    <!-- I know what I'm doing so this is always wrong. -->
+    <exclude name="CompareObjectsWithEquals"/>
+    <!-- Maintainability is more important than a particular JVM's quirks. -->
+    <exclude name="TooFewBranchesForASwitchStatement"/>
+  </rule>
+  <rule ref="rulesets/java/basic.xml"/>
+  <rule ref="rulesets/java/clone.xml"/>
+  <rule ref="rulesets/java/empty.xml"/>
+  <rule ref="rulesets/java/finalizers.xml"/>
+  <rule ref="rulesets/java/sunsecure.xml"/>
+  <rule ref="rulesets/java/strictexception.xml"/>
+  <rule ref="rulesets/java/strings.xml"/>
+  <rule ref="rulesets/java/typeresolution.xml"/>
+  <rule ref="rulesets/java/unnecessary.xml">
+    <!-- Ignores readability concerns. Very bad.-->
+    <exclude name="UselessParentheses"/>
+  </rule>
+  <rule ref="rulesets/java/unusedcode.xml"/>
+</ruleset>
