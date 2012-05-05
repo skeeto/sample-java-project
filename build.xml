@@ -56,7 +56,7 @@
 
   <target name="run" depends="compile" description="Run the application.">
     <java classname="${main.class}" classpath="${build.dir}/classes" fork="yes">
-      <classpath refid="build.classpath"/>
+      <classpath refid="runtime.classpath"/>
       <arg value="--name"/>
       <arg value="Java"/>
     </java>
@@ -66,7 +66,7 @@
           description="Run the application in hotswap mode.">
     <java classname="${main.class}" classpath="${build.dir}/classes"
           fork="true">
-      <classpath refid="build.classpath"/>
+      <classpath refid="runtime.classpath"/>
       <jvmarg line="-Xdebug -Xrunjdwp:transport=dt_socket,address=9000,server=y,suspend=n"/>
       <arg value="--loop"/>
       <arg value="--name"/>
