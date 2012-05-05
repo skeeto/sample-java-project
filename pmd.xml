@@ -12,6 +12,8 @@
     <exclude name="CompareObjectsWithEquals"/>
     <!-- Maintainability is more important than a particular JVM's quirks. -->
     <exclude name="TooFewBranchesForASwitchStatement"/>
+    <!-- Interacts poorly with Lombok and JCommander, but could be useful. -->
+    <exclude name="ImmutableField"/>
   </rule>
   <rule ref="rulesets/java/basic.xml"/>
   <rule ref="rulesets/java/clone.xml"/>
