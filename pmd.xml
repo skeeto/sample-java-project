@@ -8,7 +8,7 @@
     <exclude name="UncommentedEmptyConstructor"/>
     <!-- I disagree. -->
     <exclude name="ConfusingTernary"/>
-    <!-- I know what I'm doing so this is always wrong. -->
+    <!-- Complains about enums. I know what I'm doing so it's always wrong. -->
     <exclude name="CompareObjectsWithEquals"/>
     <!-- Maintainability is more important than a particular JVM's quirks. -->
     <exclude name="TooFewBranchesForASwitchStatement"/>
