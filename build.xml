@@ -57,7 +57,7 @@
   </target>
 
   <target name="run" depends="compile" description="Run the application.">
-    <java classname="${main.class}" classpath="${build.dir}/classes">
+    <java classname="${main.class}" classpath="${build.dir}/classes" fork="yes">
       <classpath refid="runtime.classpath"/>
     </java>
   </target>
@@ -84,7 +84,7 @@
     </javadoc>
   </target>
 
-  <target name="check" depends="resolve">
+  <target name="check" depends="resolve" description="Run Checkstyle.">
     <taskdef resource="checkstyletask.properties"
              classpathref="analysis.classpath"/>
     <checkstyle config="checkstyle.xml">
