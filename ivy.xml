@@ -18,6 +18,10 @@
     <!-- Unit Test -->
     <dependency org="junit" name="junit" rev="4.10"
                 conf="test->default"/>
+    <dependency org="net.sourceforge.cobertura" name="cobertura" rev="1.9.4.1"
+                conf="test->default">
+      <exclude module="ant"/>
+    </dependency>
 
     <!-- Static Analysis -->
     <dependency org="com.puppycrawl.tools" name="checkstyle" rev="5.5"

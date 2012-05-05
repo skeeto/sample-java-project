@@ -171,20 +171,33 @@
     <copy todir="${build.dir}/test">
       <fileset dir="${test.dir}" excludes="**/*.java"/>
     </copy>
+    <!-- Test coverage -->
+    <taskdef classpathref="test.classpath" resource="tasks.properties"/>
+    <cobertura-instrument todir="${build.dir}/instrumented"
+                          datafile="${build.dir}/cobertura.ser">
+      <fileset dir="${build.dir}/classes">
+        <include name="**/*.class"/>
+      </fileset>
+    </cobertura-instrument>
   </target>
 
   <target name="test" depends="test-compile" description="Run the unit tests.">
     <junit fork="yes">
       <classpath>
+        <pathelement path="${build.dir}/instrumented"/>
         <pathelement path="${build.dir}/classes"/>
         <pathelement path="${build.dir}/test"/>
         <path refid="test.classpath"/>
       </classpath>
+      <sysproperty key="net.sourceforge.cobertura.datafile"
+                   file="${build.dir}/cobertura.ser"/>
       <batchtest>
         <formatter type="brief" usefile="false"/>
         <fileset dir="${build.dir}/test"/>
       </batchtest>
     </junit>
+    <cobertura-report srcdir="${src.dir}" destdir="${dist.dir}/test"
+                      datafile="${build.dir}/cobertura.ser"/>
   </target>
 
   <!-- Maven repository support -->
