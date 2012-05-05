@@ -55,7 +55,7 @@
   </target>
 
   <target name="run" depends="compile" description="Run the application.">
-    <java classname="${main.class}" classpath="${build.dir}/classes">
+    <java classname="${main.class}" classpath="${build.dir}/classes" fork="yes">
       <classpath refid="build.classpath"/>
       <arg value="--name"/>
       <arg value="Java"/>
