@@ -8,7 +8,7 @@
     <conf name="analysis" extends="build" visibility="private"/>
   </configurations>
   <dependencies>
-    <dependency org="commons-cli" name="commons-cli" rev="1.2"
+    <dependency org="com.beust" name="jcommander" rev="1.20"
                 conf="default"/>
 
     <!-- Build -->
