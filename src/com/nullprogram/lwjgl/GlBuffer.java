@@ -8,27 +8,26 @@ import org.lwjgl.opengl.GL15;
  * An OpenGL buffer object, the abstract base class. Because the LWJGL
  * API depends highly on the <i>type</i> of the underlying Buffer, it
  * is generic and each subclass takes on a different Buffer subclass.
- * @param <T>  the type of buffer backing this OpenGL buffer
  */
-public abstract class GlBuffer<T extends Buffer> {
+public abstract class GlBuffer {
 
     /** OpenGL handle for this buffer. */
     @Getter
     private final int handle;
 
-    /** Native buffer that backs this buffer. */
-    @Getter
-    private final T buffer;
-
     /** True of this buffer has been disposed. */
     private boolean disposed = false;
+
+    /** Native buffer that backs this buffer. */
+    @Getter
+    private final Buffer buffer;
 
     /**
      * Create a new buffer.
      * @param id    the buffer's handle
      * @param data  the native buffer backing this buffer
      */
-    protected GlBuffer(final int id, final T data) {
+    protected GlBuffer(final int id, final Buffer data) {
         handle = id;
         buffer = data;
     }

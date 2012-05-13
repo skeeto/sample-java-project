@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL15;
 /**
  * OpenGL buffer based on a FloatBuffer.
  */
-public class GlFloatBuffer extends GlBuffer<FloatBuffer> {
+public class GlFloatBuffer extends GlBuffer {
 
     /**
      * Create a new OpenGL buffer for the given data. The usage hint
@@ -25,9 +25,9 @@ public class GlFloatBuffer extends GlBuffer<FloatBuffer> {
      * @param usage   usage hint for this buffer
      */
     public GlFloatBuffer(final FloatBuffer data,
-                        final int target, final int usage) {
+                         final int target, final int usage) {
         super(GL15.glGenBuffers(), data);
         GL15.glBindBuffer(target, getHandle());
-        GL15.glBufferData(target, getBuffer(), usage);
+        GL15.glBufferData(target, data, usage);
     }
 }

@@ -1,5 +1,7 @@
 package com.nullprogram.lwjgl;
 
+import java.nio.Buffer;
+import java.nio.FloatBuffer;
 import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
@@ -23,13 +25,19 @@ public class Program {
         return this;
     }
 
-    public Program detach(Shader shader) {
+    public void detach(Shader shader) {
         if (shaders.remove(shader)) {
-            GL20.glDetachShader(shader.getHandle());
+            GL20.glDetachShader(handle, shader.getHandle());
         }
     }
 
-    public Program attrib(GlBuffer buffer, String name) {
+    public Program attrib(GlFloatBuffer buffer, String name, int size) {
+        int attrib = GL20.glGetAttribLocation(handle, name);
+        if (attrib < 1) {
+            throw new IllegalStateException("Unknown attrib \"" + name + "\"");
+        }
+        GL20.glVertexAttribPointer(attrib, size, false, size,
+                                   (FloatBuffer) buffer.getBuffer());
         return this;
     }
 
@@ -41,6 +49,10 @@ public class Program {
             String info = GL20.glGetProgramInfoLog(handle, len);
             throw new LWJGLException(info);
         }
+    }
+
+    public void run() {
+        GL20.glUseProgram(handle);
     }
 
     public void dispose() {

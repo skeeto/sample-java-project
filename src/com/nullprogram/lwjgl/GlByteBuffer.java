@@ -6,7 +6,7 @@ import org.lwjgl.opengl.GL15;
 /**
  * OpenGL buffer based on a ByteBuffer.
  */
-public class GlByteBuffer extends GlBuffer<ByteBuffer> {
+public class GlByteBuffer extends GlBuffer {
 
     /**
      * Create a new OpenGL buffer for the given data. The usage hint
@@ -28,6 +28,6 @@ public class GlByteBuffer extends GlBuffer<ByteBuffer> {
                         final int target, final int usage) {
         super(GL15.glGenBuffers(), data);
         GL15.glBindBuffer(target, getHandle());
-        GL15.glBufferData(target, getBuffer(), usage);
+        GL15.glBufferData(target, data, usage);
     }
 }

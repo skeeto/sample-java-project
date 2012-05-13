@@ -4,7 +4,7 @@
 
   <!-- Project-specific configuration -->
   <loadproperties srcfile="project.properties"/>
-  <property name="main.class" value="${package.main}.${ant.project.name}"/>
+  <property name="main.class" value="${package.main}.Launcher"/>
   <property name="base.name" value="${artifactId}-${version}"/>
 
   <!-- Standard Directory Layout -->
@@ -53,7 +53,7 @@
   </target>
 
   <target name="run" depends="compile" description="Run the application.">
-    <java classname="${main.class}" classpath="${build.dir}/classes">
+    <java classname="${main.class}" classpath="${build.dir}/classes" fork="yes">
       <classpath refid="build.classpath"/>
       <arg value="--name"/>
       <arg value="Java"/>
