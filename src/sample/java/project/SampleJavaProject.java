@@ -14,7 +14,7 @@ import lombok.Setter;
  * the first method called.
  */
 @NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructorsafgshahareh
 public class SampleJavaProject implements Runnable {
 
     /** The delay between printed messages. */
