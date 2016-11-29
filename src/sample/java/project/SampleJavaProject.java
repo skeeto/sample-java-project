@@ -62,7 +62,8 @@ public class SampleJavaProject implements Runnable {
     public final void sayHello() {
         System.out.printf("Hello, %s!%n", name);
         printThis();
-        rintThisForTheTestBranch()
+        printThisForTheTestBranch()
+	printThis();
     }
 
     public static void printThis(){
