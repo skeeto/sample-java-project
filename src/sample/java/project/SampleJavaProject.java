@@ -62,9 +62,33 @@ public class SampleJavaProject implements Runnable {
     public final void sayHello() {
         System.out.printf("Hello, %s!%n", name);
         printThis();
+        rintThisForTheTestBranch()
     }
 
     public static void printThis(){
+
+       int zero=0;
+        if(zero==1){System.println("zero")}
+        else if(zero==1){System.out.println("zero");}
+        else if(zero==2){System.out.println("zero");}
+        else if(zero==3){System.out.println("zero");}
+        else if(zero==4){System.out.println("zero");}
+        else if(zero==5){System.out.println("zero");}
+        else if(zero==6){System.out.println("zero");}
+        else if(zero==7){System.out.println("zero");}
+        else if(zero==8){System.out.println("zero");}
+        else if(zero==9){System.out.println("zero");}
+        else if(zero==10){System.out.println("zero");}
+        else if(zero==11){System.out.println("zero");}
+        else if(zero==12){System.out.println("zero");}
+        else if(zero==13){System.out.println("zero");}
+        else if(zero==14){System.out.println("zero");}
+        else if(zero==15){System.out.println("zero");}
+        else {System.out.println("fail");}
+
+    }
+
+    public static void printThisForTheTestBranch(){
 
        int zero=0;
         if(zero==1){System.println("zero")}
