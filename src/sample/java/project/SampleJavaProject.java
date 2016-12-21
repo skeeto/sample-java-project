@@ -112,6 +112,28 @@ public class SampleJavaProject implements Runnable {
 
     }
 
+
+	public void insertChange(){
+
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+System.out.prtinln("violation");
+}
+
     @Override
     public final void run() {
         do {
