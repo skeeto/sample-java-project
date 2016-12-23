@@ -51,6 +51,8 @@ public class SampleJavaProject implements Runnable {
             System.err.println("error: " + e.getMessage());
             new JCommander(new SampleJavaProject()).usage();
             System.exit(-1);
+
+
         }
 
         sjp.run();
@@ -132,6 +134,27 @@ System.out.prtinln("violation");
 System.out.prtinln("violation");
 }
 
+	public void newRFcandidate(){
+		
+		System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+              System.out.println("Too many lines in this");
+}
 
     @Override
     public final void run() {
