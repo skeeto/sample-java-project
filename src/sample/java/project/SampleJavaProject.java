@@ -85,10 +85,7 @@ public class SampleJavaProject implements Runnable {
         else if(zero==11){System.out.println("zero");}
         else if(zero==12){System.out.println("zero");}
         else if(zero==13){System.out.println("zero");}
-        else if(zero==14){System.out.println("zero");}
-        else if(zero==15){System.out.println("zero");}
-        else {System.out.println("fail");}
-
+        
     }
 
     public static void printThisForTheTestBranch(){
@@ -134,7 +131,7 @@ System.out.prtinln("violation");
 System.out.prtinln("violation");
 }
 
-	public void newRFcandidate(){
+	public void newRFcandidate1(){
 		
 		System.out.println("Too many lines in this");
               System.out.println("Too many lines in this");              System.out.println("Too many lines in this");
