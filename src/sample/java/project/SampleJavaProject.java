@@ -70,9 +70,10 @@ public class SampleJavaProject implements Runnable {
 	printThis();
     }
 
-    public static void printThis(){
-
-       int zero=0;
+    public static void printThis22(){
+	int a = 1;
+	int b = 2;
+       int zero = 0;
         if(zero==1){System.println("zero")}
         else if(zero==1){System.out.println("zero");}
         else if(zero==2){System.out.println("zero");}
