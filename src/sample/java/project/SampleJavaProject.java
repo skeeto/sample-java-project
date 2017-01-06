@@ -116,7 +116,7 @@ public class SampleJavaProject implements Runnable {
 
     }
 
-	public void tooManyArguments(int a, int b, int c, int d, int e, int f, int g)
+	public int tooManyArguments(int a, int b, int c, int d, int e, int f, int g)
 	{
 	return a;
 	}
