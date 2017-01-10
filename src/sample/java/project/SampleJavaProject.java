@@ -12,7 +12,7 @@ import lombok.NonNull;
 import lombok.Setter;
 
 //adding random comments
-
+//some more comments 
 /**
  * The main class of the application. It contains the main() method,
  * the first method called.
@@ -72,7 +72,7 @@ public class SampleJavaProject implements Runnable {
 	printThis();
     }
 
-    public static void printThis22(){
+    public static void changedMethodName(){
 	int a = 1;
 	int b = 2;
        int zero = 0;
@@ -86,10 +86,9 @@ public class SampleJavaProject implements Runnable {
         else if(zero==7){System.out.println("zero");}
         else if(zero==8){System.out.println("zero");}
         else if(zero==9){System.out.println("zero");}
-        else if(zero==10){System.out.println("zero");}
-        else if(zero==11){System.out.println("zero");}
-        else if(zero==12){System.out.println("zero");}
-        else if(zero==13){System.out.println("zero");}
+        else if(zero==10){System.out.println("zero");
+	if(zero==a){if (a==b){if(b==zero)}}}
+	}
         
     }
 
