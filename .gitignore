@@ -2,3 +2,4 @@ build
 dist
 cache.properties
 TAGS
+.idea
