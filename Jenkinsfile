@@ -1,4 +1,4 @@
-stage("Pull source code"){
+stage("Get source code"){
 	node("master"){
 		git 'https://github.com/jpenekusu/sample-java-project.git'
 	}
