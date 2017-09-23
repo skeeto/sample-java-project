@@ -1,6 +1,7 @@
 stage("Get source code"){
 	node("master"){
-		git 'https://github.com/jpenekusu/sample-java-project.git'
+		checkout scm
+		//git 'https://github.com/jpenekusu/sample-java-project.git'
 	}
 }
 
