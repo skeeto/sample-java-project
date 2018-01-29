@@ -19,7 +19,7 @@
 
   <scm>
     <connection>
-      scm:git:@project.repo.url@
+      scm:git:@repo.url@
     </connection>
     <url>@project.scm.url@</url>
   </scm>
