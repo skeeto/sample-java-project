@@ -1,11 +1,9 @@
 # Sample Java Project
 
-This is a reference for setting up a new Ant-based Java project. It
-contains most of the little Ant tricks I've learned over the
-years. When I start a new Java project I clone this repository, remove
-sections of build.xml that I don't care about for that particular
-project, set the project properties, clear out the sample sources, and
-get to work.
+This is a reference for setting up a new Ant-based Java project. It contains the
+most of the little Ant tricks I have learned in the past few years. When I start
+a new Java project, I clone this repository, remove some useless sections of build.xml, 
+set the project properties, clear out the sample sources, and get to work.
 
 ## Setup
 
@@ -40,13 +38,12 @@ your passphrase a bunch of times in a row.
 
 ## Philosophy
 
-I hate coding absolute paths in my build script and I hate including
+I hate coding absolute paths in my build script, and I hate including
 built files as part of the base project. My philosophy is that the
 *environment* should be set up so that the tool can easily find the
 external resources they need (JUnit, etc.) from the system or
-dependency manager. It's the system or dependency manager that
-provides the libraries. Anyone who has the proper development
-environment set up -- one that works across many projects -- should be
-able to clone the repository and do a build simply by running the
-build program with no special arguments. There should be no need to
+dependency manager. The system or dependency manager provides the libraries.
+The person who has the proper development environment set up and works across
+many projects have the ability to clone the repository and do a build by running
+the build program with no special arguments. There should be no need to
 edit or install anything into the project space for the initial build.
