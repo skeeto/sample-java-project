@@ -16,7 +16,7 @@ public final class Lwjgl {
      * Prepares all of the LWJGL native libraries for loading.
      * @throws java.io.IOException when the libraries could not be loaded
      */
-    public static void setup() throws java.io.IOException {
+    public static void setup() throws java.io.IOException { //test
         prepare(Arch.LINUX_64, "/libjinput-linux64.so");
         prepare(Arch.LINUX_32, "/libjinput-linux.so");
         prepare(Arch.LINUX_64, "/liblwjgl64.so");
