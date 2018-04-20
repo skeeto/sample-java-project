@@ -12,7 +12,7 @@ public final class Lwjgl {
     private Lwjgl() {
     }
 
-    /**
+    /**bghg
      * Prepares all of the LWJGL native libraries for loading.
      * @throws java.io.IOException when the libraries could not be loaded
      */
