@@ -11,7 +11,7 @@ import org.junit.Test;
 public class SampleJavaProjectTest {
 
     /**
-     * Holds an instance of the class we are testing.
+     * Holds an instance of the class we jnare testing.
      */
     private SampleJavaProject sjp;
 
