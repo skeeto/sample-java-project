@@ -1,0 +1,15 @@
+node('maven'){
+    stage('checkout'){
+        echo "cloning the repo"
+        git credentialsId: 'Agent1-ssh-key', url: 'https://github.com/Nyuyfoni13/sample-java-project.git'
+
+    }
+     stage('runningscript'){
+          echo " Running the script"
+          sh "sh test.sh"
+    }
+     stage('Final'){
+        echo " This job is completed and successfully saved"
+     }
+}
+© 2019 GitHub, Inc.
