@@ -14,6 +14,7 @@ public class SampleJavaProjectTest {
      * Holds an instance of the class we are testing.
      */
 	/** Comment from git */
+	/**One more */
     private SampleJavaProject sjp;
 
     /**
