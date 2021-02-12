@@ -4,6 +4,7 @@
 #3rd update
 #4th update - comparing diff between staging and commit area
 #5th update - 
+#6th update - checking diff between different checked in versions
 
 This is a reference for setting up a new Ant-based Java project. It
 contains most of the little Ant tricks I've learned over the
