@@ -28,8 +28,8 @@ public class SampleJavaProjectTest {
      */
     @Test
     public final void testGetSet() {
-        sjp.setName("foo");
-        assertEquals("foo", sjp.getName());
+        sjp.setName("boo");
+        assertEquals("boo", sjp.getName());
     }
 
     /**
